@@ -1,21 +1,24 @@
+import pymysql
+pymysql.install_as_MySQLdb()
+
 import MySQLdb
 import sys
 import pandas as pd
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 import locale
 
-#Mis credenciales (con cuidado que te veo)
-miusuario='novato'
-contraseña='contraseñamariadb'
-mihost='localhost'
+load_dotenv()
+
 
 #Conexión con las bases de datos de origen y destino (estrella)
 try:
     conexionDBOrigen=MySQLdb.connect(
-            user=miusuario,
-            password=contraseña,
-            host=mihost,
-            database='farmacia')
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD'),
+            host=os.getenv('DB_HOST'),
+            database=os.getenv('DB_NAME_ORIGEN'))
     print("Conexión exitosa a la base de datos de origen")
 except Exception as e:
     print("Error al conectarse a la base de datos de origen", e)
@@ -23,10 +26,10 @@ except Exception as e:
 
 try:
     conexionDBDestino=MySQLdb.connect(
-            user=miusuario,
-            password=contraseña,
-            host=mihost,
-            database='farmaciaETL')
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD'),
+            host=os.getenv('DB_HOST'),
+            database=os.getenv('DB_NAME_DESTINO'))
     print("Conexión exitosa a la base de datos de destino")
 except Exception as e:
     print("Error al conectarse a la base de datos de destino", e)

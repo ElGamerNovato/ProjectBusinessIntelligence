@@ -1,15 +1,21 @@
-import MySQLdb
 import pandas as pd
 import matplotlib.pyplot as plt
 import sys
+import pymysql
+pymysql.install_as_MySQLdb()
+import MySQLdb
 from datetime import datetime, timedelta
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 try:
     conn = MySQLdb.connect(
-            user='novato',
-            password='contraseñamariadb',
-            host='localhost',
-            database='farmaciaETL')
+        host = os.getenv('DB_HOST'),
+        user = os.getenv('DB_USER'),
+        password = os.getenv('DB_PASSWORD'),
+        database = os.getenv('DB_NAME_DESTINO'))
     cursor=conn.cursor()
 except Exception as e:
     print("Error al conectarse con la base de datos", e)
@@ -36,7 +42,7 @@ try:
     plt.title('Cantidad de ventas realizadas por cada empleado')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/VentasPorEmpleado.png')
+    plt.savefig('GraficosEstadisticos/VentasPorEmpleado.png')
     plt.close()
     print("Se ha creado la estadística de ventas por empleado")
 except Exception as e:
@@ -57,7 +63,7 @@ try:
     ax.set_ylabel('Ingresos totales')
     ax.set_title('Total de ingresos generados por empleado')
     plt.xticks(rotation=25)
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/IngresosPorEmpleado.png')
+    plt.savefig('GraficosEstadisticos/IngresosPorEmpleado.png')
     plt.close()
     print("Se ha creado el gráfico de la cantidad de ingresos generados por empleado")
     #Porcentaje
@@ -67,7 +73,7 @@ try:
             autopct='%1.1f%%',
             startangle=140)
     plt.title("Porcentaje de ingresos generados por cada empleado")
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/PorcentajeIngresosPorEmpleado.png')
+    plt.savefig('GraficosEstadisticos/PorcentajeIngresosPorEmpleado.png')
     plt.close()
     print("Se ha creado el gráfico del porcentaje de ingresos generados por empleado")
 except Exception as e:
@@ -92,7 +98,7 @@ try:
     ax.set_title('Productos más vendidos el Lunes de la semana anterior')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/DiasDeSemana/lunesAnterior.png')
+    plt.savefig('GraficosEstadisticos/DiasDeSemana/lunesAnterior.png')
     plt.close()
 
     #Martes
@@ -108,7 +114,7 @@ try:
     ax.set_title('Productos más vendidos el Martes de la semana anterior')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/DiasDeSemana/martesAnterior.png')
+    plt.savefig('GraficosEstadisticos/DiasDeSemana/martesAnterior.png')
     plt.close()
 
     #Miercoles
@@ -124,7 +130,7 @@ try:
     ax.set_title('Productos más vendidos el Miércoles de la semana anterior')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/DiasDeSemana/miercolesAnterior.png')
+    plt.savefig('GraficosEstadisticos/DiasDeSemana/miercolesAnterior.png')
     plt.close()
 
     #Jueves
@@ -141,7 +147,7 @@ try:
     ax.set_title('Productos más vendidos el Jueves de la semana anterior')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/DiasDeSemana/juevesAnterior.png')
+    plt.savefig('GraficosEstadisticos/DiasDeSemana/juevesAnterior.png')
     plt.close()
 
     #Viernes
@@ -158,7 +164,7 @@ try:
     ax.set_title('Productos más vendidos el Viernes de la semana anterior')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/DiasDeSemana/viernesAnterior.png')
+    plt.savefig('GraficosEstadisticos/DiasDeSemana/viernesAnterior.png')
     plt.close()
 
     #Sabado
@@ -175,7 +181,7 @@ try:
     ax.set_title('Productos más vendidos el Sábado de la semana anterior')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/DiasDeSemana/sabadoAnterior.png')
+    plt.savefig('GraficosEstadisticos/DiasDeSemana/sabadoAnterior.png')
     plt.close()
 
     #Domingo
@@ -192,7 +198,7 @@ try:
     ax.set_title('Productos más vendidos el Domingo de la semana anterior')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('/home/novato/Projects/BusinessIntelligence/ETL/GraficosEstadisticos/DiasDeSemana/domingoAnterior.png')
+    plt.savefig('GraficosEstadisticos/DiasDeSemana/domingoAnterior.png')
     plt.close()
     
     print("Se han creado los gráficos de los productos más vendidos cada día de la semana anterior")

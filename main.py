@@ -2,11 +2,16 @@ import MySQLdb
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 conn=MySQLdb.connect(
-        user='novato',
-        password='contraseñamariadb',
-        host='localhost',
-        database='farmacia')
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        host=os.getenv('DB_HOST'),
+        database=os.getenv('DB_NAME_ORIGEN'))
 
 cursor=conn.cursor()
 
